@@ -6,12 +6,15 @@ import com.example.movieapp.data.remote.MovieApi
 import javax.inject.Inject
 import javax.inject.Named
 
-private const val TAG = "MovieRepository"
+
 
 class MovieRepository @Inject constructor(
     private val api: MovieApi,
     @Named("apiKey") private val apiKey: String
 ) {
+    companion object{
+        private const val TAG = "MovieRepository"
+    }
     init {
         Log.d(TAG, "Initializing MovieRepository")
     }

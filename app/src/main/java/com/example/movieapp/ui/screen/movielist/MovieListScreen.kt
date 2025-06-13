@@ -19,11 +19,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.movieapp.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -43,7 +45,7 @@ fun MovieListScreen(
             .padding(16.dp)
     ) {
         Text(
-            text = "Movies",
+            text = stringResource(R.string.movies),
             fontSize = 30.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(bottom = 16.dp)
@@ -54,7 +56,7 @@ fun MovieListScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(errorMessage)
-                Button(onClick = { viewModel.loadMovies() }) { Text("Повторити") }
+                Button(onClick = { viewModel.loadMovies() }) { Text(stringResource(R.string.try_again)) }
             }
         } else {
             LazyVerticalGrid(

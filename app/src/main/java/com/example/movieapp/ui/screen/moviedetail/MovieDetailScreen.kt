@@ -17,6 +17,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -24,9 +25,7 @@ import coil.compose.AsyncImage
 import coil.compose.SubcomposeAsyncImage
 import com.example.movieapp.R
 import com.example.movieapp.data.model.Movie
-
-private const val TAG = "MovieDetailScreen"
-private const val IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500"
+import com.example.movieapp.utils.Constants.IMAGE_BASE_URL
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -34,6 +33,8 @@ fun MovieDetailScreen(
     movie: Movie,
     onBackClick: () -> Unit
 ) {
+    val TAG = "MovieDetailScreen"
+
     Log.d(TAG, "Rendering MovieDetailScreen for movie: ${movie.title}")
 
     Scaffold(
@@ -54,12 +55,9 @@ fun MovieDetailScreen(
                 .padding(paddingValues)
                 .verticalScroll(rememberScrollState())
         ) {
-            SubcomposeAsyncImage(
-                loading = {
-                    CircularProgressIndicator(color = Color.Red)
-                },
+            AsyncImage(
                 model = "$IMAGE_BASE_URL${movie.poster_path}",
-                contentDescription = "Movie poster",
+                contentDescription = stringResource(R.string.movie_poster),
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(500.dp),
@@ -76,29 +74,27 @@ fun MovieDetailScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
+                        modifier = Modifier.weight(0.8f),
                         text = movie.title,
                         style = MaterialTheme.typography.headlineMedium,
                         fontWeight = FontWeight.Bold
                     )
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            Icons.Default.Star,
-                            contentDescription = "Rating",
-                            tint = MaterialTheme.colorScheme.primary
-                        )
-                        Spacer(modifier = Modifier.width(4.dp))
-                        Text(
-                            text = stringResource(R.string.rate_format, movie.vote_average),
-                            style = MaterialTheme.typography.titleLarge
-                        )
-                    }
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Icon(
+                        modifier = Modifier.weight(0.1f),
+                        imageVector = Icons.Default.Star,
+                        contentDescription = stringResource(R.string.rating),
+                        tint = MaterialTheme.colorScheme.primary
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = stringResource(R.string.rate_format, movie.vote_average),
+                        style = MaterialTheme.typography.titleLarge
+                    )
                 }
-
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(dimensionResource(R.dimen.spacer_height)))
                 Text(
-                    text = "Release Date",
+                    text = stringResource(R.string.release_date),
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.primary
                 )
@@ -106,10 +102,9 @@ fun MovieDetailScreen(
                     text = movie.release_date,
                     style = MaterialTheme.typography.bodyLarge
                 )
-
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(
-                    text = "Overview",
+                    text = stringResource(R.string.overview),
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.primary
                 )

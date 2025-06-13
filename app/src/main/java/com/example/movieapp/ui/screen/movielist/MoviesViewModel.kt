@@ -12,7 +12,6 @@ import javax.inject.Inject
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 
-private const val TAG = "MoviesViewModel"
 
 @HiltViewModel
 class MoviesViewModel @Inject constructor(private val repository: MovieRepository) : ViewModel() {
@@ -22,6 +21,10 @@ class MoviesViewModel @Inject constructor(private val repository: MovieRepositor
     var hasError by mutableStateOf(false)
     var errorMessage by mutableStateOf("")
     var totalPages by mutableStateOf(Int.MAX_VALUE)
+
+    companion object{
+        private const val TAG = "MoviesViewModel"
+    }
 
     init {
         Log.d(TAG, "Initializing MoviesViewModel")

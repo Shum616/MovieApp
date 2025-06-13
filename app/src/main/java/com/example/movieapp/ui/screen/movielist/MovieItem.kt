@@ -40,7 +40,7 @@ fun MovieItem(movie: Movie, onClick: () -> Unit) {
             verticalArrangement = Arrangement.Center
         ) {
             AsyncImage(
-                model = "https://image.tmdb.org/t/p/w500${movie.poster_path}",
+                model = stringResource(R.string.base_image_url, movie.poster_path),
                 contentDescription = movie.title,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -68,7 +68,7 @@ fun MovieItem(movie: Movie, onClick: () -> Unit) {
                 )
                 Image(
                     painter = painterResource(R.drawable.star),
-                    contentDescription = "star",
+                    contentDescription = stringResource(R.string.star),
                     modifier = Modifier.padding(2.dp)
                 )
             }

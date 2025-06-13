@@ -2,6 +2,7 @@ package com.example.movieapp.ui.navigation
 
 import android.util.Log
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -11,7 +12,6 @@ import com.example.movieapp.ui.screen.moviedetail.MovieDetailScreen
 import com.example.movieapp.ui.screen.movielist.MovieListScreen
 import com.example.movieapp.ui.screen.movielist.MoviesViewModel
 
-private const val TAG = "MoviesNavHost"
 
 sealed class Screen(val route: String) {
     object MovieList : Screen("movie_list")
@@ -21,7 +21,10 @@ sealed class Screen(val route: String) {
 }
 
 @Composable
-fun MoviesNavHost(navController: NavHostController, moviesViewModel: MoviesViewModel) {
+fun MoviesNavHost(navController: NavHostController, moviesViewModel: MoviesViewModel = hiltViewModel()) {
+
+    val TAG = "MoviesNavHost"
+
     Log.d(TAG, "Initializing MoviesNavHost")
     
     NavHost(navController, startDestination = Screen.MovieList.route) {

@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">MovieApp</string>
     <string name="rate_format">%.1f</string>
+    <string name="movie_poster">Movie poster</string>
+    <string name="rating">Rating</string>
+    <string name="release_date">Release Date</string>
+    <string name="overview">Overview</string>
+    <string name="base_image_url">https://image.tmdb.org/t/p/w500%1$s</string>
+    <string name="star">star</string>
+    <string name="movies">Movies</string>
+    <string name="try_again">Try Again</string>
 </resources>
