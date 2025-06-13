@@ -3,18 +3,26 @@ package com.example.movieapp.ui.screen.moviedetail
 import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import coil.compose.SubcomposeAsyncImage
+import com.example.movieapp.R
 import com.example.movieapp.data.model.Movie
 
 private const val TAG = "MovieDetailScreen"
@@ -27,14 +35,14 @@ fun MovieDetailScreen(
     onBackClick: () -> Unit
 ) {
     Log.d(TAG, "Rendering MovieDetailScreen for movie: ${movie.title}")
-    
+
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text(movie.title) },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Default.ArrowBack, contentDescription = "Back")
                     }
                 }
             )
@@ -46,23 +54,22 @@ fun MovieDetailScreen(
                 .padding(paddingValues)
                 .verticalScroll(rememberScrollState())
         ) {
-            // Movie Poster
-            AsyncImage(
+            SubcomposeAsyncImage(
+                loading = {
+                    CircularProgressIndicator(color = Color.Red)
+                },
                 model = "$IMAGE_BASE_URL${movie.poster_path}",
                 contentDescription = "Movie poster",
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(400.dp),
+                    .height(500.dp),
                 contentScale = ContentScale.Crop
             )
-            
-            // Movie Details
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
             ) {
-                // Title and Rating
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -73,7 +80,6 @@ fun MovieDetailScreen(
                         style = MaterialTheme.typography.headlineMedium,
                         fontWeight = FontWeight.Bold
                     )
-                    
                     Row(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
@@ -84,15 +90,13 @@ fun MovieDetailScreen(
                         )
                         Spacer(modifier = Modifier.width(4.dp))
                         Text(
-                            text = String.format("%.1f", movie.vote_average),
+                            text = stringResource(R.string.rate_format, movie.vote_average),
                             style = MaterialTheme.typography.titleLarge
                         )
                     }
                 }
-                
+
                 Spacer(modifier = Modifier.height(16.dp))
-                
-                // Release Date
                 Text(
                     text = "Release Date",
                     style = MaterialTheme.typography.titleMedium,
@@ -102,10 +106,8 @@ fun MovieDetailScreen(
                     text = movie.release_date,
                     style = MaterialTheme.typography.bodyLarge
                 )
-                
+
                 Spacer(modifier = Modifier.height(16.dp))
-                
-                // Overview
                 Text(
                     text = "Overview",
                     style = MaterialTheme.typography.titleMedium,
@@ -118,4 +120,4 @@ fun MovieDetailScreen(
             }
         }
     }
-} 
+}

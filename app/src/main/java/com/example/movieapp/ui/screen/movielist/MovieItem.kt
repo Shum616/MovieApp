@@ -1,10 +1,11 @@
 package com.example.movieapp.ui.screen.movielist
 
-import androidx.compose.foundation.background
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,11 +17,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.movieapp.data.model.Movie
+import com.example.movieapp.R
 
 @Composable
 fun MovieItem(movie: Movie, onClick: () -> Unit) {
@@ -45,28 +49,29 @@ fun MovieItem(movie: Movie, onClick: () -> Unit) {
             )
             Text(
                 text = movie.title,
-                fontSize = 14.sp,
+                fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
             )
             Spacer(Modifier.height(2.dp))
             Text(
-                text = movie.release_date,
+                text = movie.release_date.substring(0, 4),
                 fontSize = 14.sp
             )
             Spacer(Modifier.height(2.dp))
-//            Row(
-//                modifier = Modifier.fillMaxWidth(),
-//            ) {
-//                Text(
-//                    text = movie.vote,
-//                    fontSize = 14.sp,
-//                )
-//                Image(
-//                    painter = painterResource(R.drawable.star),
-//                    contentDescription = "star",
-//                    modifier = Modifier.padding(2.dp)
-//                )
-//            }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                Text(
+                    text = stringResource(R.string.rate_format, movie.vote_average),
+                    fontSize = 19.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                Image(
+                    painter = painterResource(R.drawable.star),
+                    contentDescription = "star",
+                    modifier = Modifier.padding(2.dp)
+                )
+            }
         }
         Spacer(modifier = Modifier.height(10.dp))
         HorizontalDivider(
