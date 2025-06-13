@@ -14,4 +14,4 @@ Dependency injection with Dagger.
 
 Retrofit.
 
-Glide.
+Coil.
