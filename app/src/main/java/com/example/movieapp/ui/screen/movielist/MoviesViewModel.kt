@@ -36,8 +36,7 @@ class MoviesViewModel @Inject constructor(private val repository: MovieRepositor
             Log.d(TAG, "Skipping loadMovies: currentPage=$currentPage, totalPages=$totalPages, isLoading=$isLoading")
             return
         }
-        
-        Log.d(TAG, "Starting to load movies for page $currentPage")
+
         isLoading = true
         hasError = false
         

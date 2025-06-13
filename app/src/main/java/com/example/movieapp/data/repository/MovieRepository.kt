@@ -17,13 +17,7 @@ class MovieRepository @Inject constructor(
     }
 
     suspend fun getPopularMovies(page: Int): Result<MovieResponse> = try {
-        Log.d(TAG, "Starting API request for popular movies - page $page")
-        Log.d(TAG, "Making network call to fetch movies...")
         val response = api.getPopularMovies(apiKey, page)
-        Log.d(TAG, "API request successful - received ${response.results.size} movies")
-        Log.d(TAG, "Response details - page: ${response.page}, total_pages: ${response.total_pages}")
-        
-        // Log first few movies for debugging
         response.results.take(3).forEachIndexed { index, movie ->
             Log.d(TAG, "Movie ${index + 1}: ${movie.title} (ID: ${movie.id})")
         }
